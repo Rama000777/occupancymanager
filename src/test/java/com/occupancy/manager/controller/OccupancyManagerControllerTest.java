@@ -24,7 +24,7 @@ import com.occupancy.manager.service.OccupancyManagerService;
 class OccupancyManagerControllerTest {
 
 	@InjectMocks
-	OccupanyManagerController occupanyManagerController;
+	OccupancyManagerController occupancyManagerController;
 
 	@Mock
 	private OccupancyManagerService occupancyManagerService;
@@ -38,7 +38,7 @@ class OccupancyManagerControllerTest {
 	void testCalcuateOccupancyFor3Premium3EconomyRooms() {
 		when(occupancyManagerService.calcuateOccupancy(any(OccupancyUsageRequest.class)))
 				.thenReturn(OccupancyUsageResponseFactory.createOccupancyUsageResponseFor3Premium3EconomyRooms());
-		final var occupancyUsageResponse = occupanyManagerController
+		final var occupancyUsageResponse = occupancyManagerController
 				.calculateOccupancy(OccupancyUsageRequestFactory.createThreePremiumAndThreeEconomyRooms());
 		assertEquals("3 (EUR 738)", occupancyUsageResponse.getBody().getPremiumUsage(),
 				"Expected the premium usage values to match");
@@ -50,7 +50,7 @@ class OccupancyManagerControllerTest {
 	void testCalcuateOccupancyFor7Premium1EconomyRoom() {
 		when(occupancyManagerService.calcuateOccupancy(any(OccupancyUsageRequest.class)))
 				.thenReturn(OccupancyUsageResponseFactory.createOccupancyUsageResponseFor7Premium1EconomyRoom());
-		final var occupancyUsageResponse = occupanyManagerController
+		final var occupancyUsageResponse = occupancyManagerController
 				.calculateOccupancy(OccupancyUsageRequestFactory.createSevenPremiumAndOneEconomyRoom());
 		assertEquals("7 (EUR 1153)", occupancyUsageResponse.getBody().getPremiumUsage(),
 				"Expected the premium usage values to match");
@@ -62,7 +62,7 @@ class OccupancyManagerControllerTest {
 	void testCalcuateOccupancyFor2Premium7EconomyRooms() {
 		when(occupancyManagerService.calcuateOccupancy(any(OccupancyUsageRequest.class)))
 				.thenReturn(OccupancyUsageResponseFactory.createOccupancyUsageResponseFor2Premium7EconomyRooms());
-		final var occupancyUsageResponse = occupanyManagerController
+		final var occupancyUsageResponse = occupancyManagerController
 				.calculateOccupancy(OccupancyUsageRequestFactory.createTwoPremiumAndSevenEconomyRooms());
 		assertEquals("2 (EUR 583)", occupancyUsageResponse.getBody().getPremiumUsage(),
 				"Expected the premium usage values to match");
@@ -74,7 +74,7 @@ class OccupancyManagerControllerTest {
 	void testCalcuateOccupancyFor7Premium5EconomyRooms() {
 		when(occupancyManagerService.calcuateOccupancy(any(OccupancyUsageRequest.class)))
 				.thenReturn(OccupancyUsageResponseFactory.createOccupancyUsageResponseFor7Premium5EconomyRooms());
-		final var occupancyUsageResponse = occupanyManagerController
+		final var occupancyUsageResponse = occupancyManagerController
 				.calculateOccupancy(OccupancyUsageRequestFactory.createSevenPremiumAndFiveEconomyRooms());
 		assertEquals("6 (EUR 1054)", occupancyUsageResponse.getBody().getPremiumUsage(),
 				"Expected the premium usage values to match");
