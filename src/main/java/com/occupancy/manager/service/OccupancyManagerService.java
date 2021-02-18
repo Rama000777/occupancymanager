@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.occupancy.manager.dto.OccupancyUsageRequest;
 import com.occupancy.manager.dto.OccupancyUsageResponse;
-import com.occupancy.manager.dto.OccupanyDataStore;
+import com.occupancy.manager.dto.OccupancyDataStore;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,25 +42,25 @@ public class OccupancyManagerService implements IOccupancyManagerService {
 		log.info("Economy Customers {}", economyCustomers);
 		log.info("Premium Customers {}", premiumCustomers);
 
-		var occupanyDataStore = new OccupanyDataStore();
+		var occupancyDataStore = new OccupancyDataStore();
 
-		calculatePremiumCustomersUsage(premiumCustomers, premiumRooms, occupanyDataStore);
+		calculatePremiumCustomersUsage(premiumCustomers, premiumRooms, occupancyDataStore);
 
-		caculateEconomyCustomersWithPremiumUpgrade(economyCustomers, economyRooms, occupanyDataStore);
+		calculateEconomyCustomersWithPremiumUpgrade(economyCustomers, economyRooms, occupancyDataStore);
 
-		log.info("Usage Premium: {} (EUR {})", occupanyDataStore.getPremiumRoomsOccupied(),
-				occupanyDataStore.getPremiumUsage());
-		log.info("Usage Economy: {} (EUR {})", occupanyDataStore.getEconomyRoomsOccupied(),
-				occupanyDataStore.getEconomyUsage());
+		log.info("Usage Premium: {} (EUR {})", occupancyDataStore.getPremiumRoomsOccupied(),
+				occupancyDataStore.getPremiumUsage());
+		log.info("Usage Economy: {} (EUR {})", occupancyDataStore.getEconomyRoomsOccupied(),
+				occupancyDataStore.getEconomyUsage());
 		return new OccupancyUsageResponse(
-				String.format(OCCUPANCY_USAGE, occupanyDataStore.getPremiumRoomsOccupied(),
-						occupanyDataStore.getPremiumUsage()),
-				String.format(OCCUPANCY_USAGE, occupanyDataStore.getEconomyRoomsOccupied(),
-						occupanyDataStore.getEconomyUsage()));
+				String.format(OCCUPANCY_USAGE, occupancyDataStore.getPremiumRoomsOccupied(),
+						occupancyDataStore.getPremiumUsage()),
+				String.format(OCCUPANCY_USAGE, occupancyDataStore.getEconomyRoomsOccupied(),
+						occupancyDataStore.getEconomyUsage()));
 	}
 
 	/**
-	 * This method will sort and provides the partition customes by margin
+	 * This method will sort and provides the partition customers by margin
 	 * 
 	 * @param occupancyUsageRequest
 	 * @return
@@ -87,27 +87,27 @@ public class OccupancyManagerService implements IOccupancyManagerService {
 	 * 
 	 * @param premiumCustomers
 	 * @param premiumRooms
-	 * @param occupanyDataStore
+	 * @param occupancyDataStore
 	 */
 	private void calculatePremiumCustomersUsage(List<Integer> premiumCustomers, int premiumRooms,
-			OccupanyDataStore occupanyDataStore) {
+			OccupancyDataStore occupancyDataStore) {
 
 		if (premiumRooms > 0 && !premiumCustomers.isEmpty()) {
 			var totalPremiumCustomers = premiumCustomers.size();
 			if (premiumRooms >= totalPremiumCustomers) {
-				occupanyDataStore.setPremiumUsage(
-						calculateSum(occupanyDataStore.getPremiumUsage(), calculateSum(premiumCustomers)));
-				occupanyDataStore.setPremiumRoomsVacant(
-						calculateSum(occupanyDataStore.getPremiumRoomsVacant(), premiumRooms - totalPremiumCustomers));
-				occupanyDataStore.setPremiumRoomsOccupied(
-						calculateSum(occupanyDataStore.getPremiumRoomsOccupied(), totalPremiumCustomers));
+				occupancyDataStore.setPremiumUsage(
+						calculateSum(occupancyDataStore.getPremiumUsage(), calculateSum(premiumCustomers)));
+				occupancyDataStore.setPremiumRoomsVacant(
+						calculateSum(occupancyDataStore.getPremiumRoomsVacant(), premiumRooms - totalPremiumCustomers));
+				occupancyDataStore.setPremiumRoomsOccupied(
+						calculateSum(occupancyDataStore.getPremiumRoomsOccupied(), totalPremiumCustomers));
 			} else {
 				var premiumCustomersOccupied = getSubListCustomers(premiumCustomers,
 						totalPremiumCustomers - premiumRooms, totalPremiumCustomers);
-				occupanyDataStore.setPremiumUsage(
-						calculateSum(occupanyDataStore.getPremiumUsage(), calculateSum(premiumCustomersOccupied)));
-				occupanyDataStore.setPremiumRoomsOccupied(
-						calculateSum(occupanyDataStore.getPremiumRoomsOccupied(), premiumCustomersOccupied.size()));
+				occupancyDataStore.setPremiumUsage(
+						calculateSum(occupancyDataStore.getPremiumUsage(), calculateSum(premiumCustomersOccupied)));
+				occupancyDataStore.setPremiumRoomsOccupied(
+						calculateSum(occupancyDataStore.getPremiumRoomsOccupied(), premiumCustomersOccupied.size()));
 			}
 		}
 	}
@@ -116,30 +116,30 @@ public class OccupancyManagerService implements IOccupancyManagerService {
 	 * 
 	 * @param economyCustomers
 	 * @param economyRooms
-	 * @param occupanyDataStore
+	 * @param occupancyDataStore
 	 */
-	private void caculateEconomyCustomersWithPremiumUpgrade(List<Integer> economyCustomers, Integer economyRooms,
-			OccupanyDataStore occupanyDataStore) {
+	private void calculateEconomyCustomersWithPremiumUpgrade(List<Integer> economyCustomers, Integer economyRooms,
+			OccupancyDataStore occupancyDataStore) {
 		// Validating the upgrade of the economy customers
 		if (economyRooms > 0 && !economyCustomers.isEmpty()) {
 			var totalEconomyCustomers = economyCustomers.size();
 			// Check whether the economy customers are prefilled even if the customers are
 			// upgraded to premium
-			if (totalEconomyCustomers >= (economyRooms - 1) && occupanyDataStore.getPremiumRoomsVacant() > 0) {
+			if (totalEconomyCustomers >= (economyRooms - 1) && occupancyDataStore.getPremiumRoomsVacant() > 0) {
 				var economyCustomersOccupied = economyRooms >= totalEconomyCustomers
 						? getSubListCustomers(economyCustomers, 0, totalEconomyCustomers)
 						: getSubListCustomers(economyCustomers, 0, totalEconomyCustomers - economyRooms);
 				var economyPremiumOccupied = economyCustomers.stream().collect(toList());
 				economyPremiumOccupied.removeAll(economyCustomersOccupied);
 				if (!economyPremiumOccupied.isEmpty()) {
-					occupanyDataStore.setPremiumUsage(
-							calculateSum(occupanyDataStore.getPremiumUsage(), calculateSum(economyPremiumOccupied)));
-					occupanyDataStore.setPremiumRoomsOccupied(
-							calculateSum(occupanyDataStore.getPremiumRoomsOccupied(), economyPremiumOccupied.size()));
+					occupancyDataStore.setPremiumUsage(
+							calculateSum(occupancyDataStore.getPremiumUsage(), calculateSum(economyPremiumOccupied)));
+					occupancyDataStore.setPremiumRoomsOccupied(
+							calculateSum(occupancyDataStore.getPremiumRoomsOccupied(), economyPremiumOccupied.size()));
 				}
-				calculateEconomyCustomersUsage(economyCustomersOccupied, economyRooms, occupanyDataStore);
+				calculateEconomyCustomersUsage(economyCustomersOccupied, economyRooms, occupancyDataStore);
 			} else {
-				calculateEconomyCustomersUsage(economyCustomers, economyRooms, occupanyDataStore);
+				calculateEconomyCustomersUsage(economyCustomers, economyRooms, occupancyDataStore);
 			}
 		}
 	}
@@ -149,23 +149,23 @@ public class OccupancyManagerService implements IOccupancyManagerService {
 	 * 
 	 * @param economyCustomers
 	 * @param economyRooms
-	 * @param occupanyDataStore
+	 * @param occupancyDataStore
 	 */
 	private void calculateEconomyCustomersUsage(List<Integer> economyCustomers, int economyRooms,
-			OccupanyDataStore occupanyDataStore) {
+			OccupancyDataStore occupancyDataStore) {
 		var totalEconomyCustomers = economyCustomers.size();
 		if (economyRooms >= totalEconomyCustomers) {
-			occupanyDataStore
-					.setEconomyUsage(calculateSum(occupanyDataStore.getEconomyUsage(), calculateSum(economyCustomers)));
-			occupanyDataStore.setEconomyRoomsOccupied(
-					calculateSum(occupanyDataStore.getEconomyRoomsOccupied(), totalEconomyCustomers));
+			occupancyDataStore
+					.setEconomyUsage(calculateSum(occupancyDataStore.getEconomyUsage(), calculateSum(economyCustomers)));
+			occupancyDataStore.setEconomyRoomsOccupied(
+					calculateSum(occupancyDataStore.getEconomyRoomsOccupied(), totalEconomyCustomers));
 		} else {
 			var economyCustomersOccupied = getSubListCustomers(economyCustomers, totalEconomyCustomers - economyRooms,
 					totalEconomyCustomers);
-			occupanyDataStore.setEconomyUsage(
-					calculateSum(occupanyDataStore.getEconomyUsage(), calculateSum(economyCustomersOccupied)));
-			occupanyDataStore.setEconomyRoomsOccupied(
-					calculateSum(occupanyDataStore.getEconomyRoomsOccupied(), economyCustomersOccupied.size()));
+			occupancyDataStore.setEconomyUsage(
+					calculateSum(occupancyDataStore.getEconomyUsage(), calculateSum(economyCustomersOccupied)));
+			occupancyDataStore.setEconomyRoomsOccupied(
+					calculateSum(occupancyDataStore.getEconomyRoomsOccupied(), economyCustomersOccupied.size()));
 		}
 	}
 

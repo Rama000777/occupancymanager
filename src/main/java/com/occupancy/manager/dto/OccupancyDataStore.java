@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class OccupanyDataStore {
+public class OccupancyDataStore {
 	private int premiumUsage;
 	private int economyUsage;
 	private int premiumRoomsVacant;
