@@ -41,7 +41,7 @@ public class OccupancyManagerController {
 	@PostMapping(path = "/occupancy-usage", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<OccupancyUsageResponse> calculateOccupancy(
 			@RequestBody final OccupancyUsageRequest occupancyUsageRequest) {
-		log.info("In calcuateOccupancy");
+		log.info("In calculateOccupancy");
 		return new ResponseEntity<>(occupancyManagerService.calculateOccupancy(occupancyUsageRequest),
 				HttpStatus.CREATED);
 	}

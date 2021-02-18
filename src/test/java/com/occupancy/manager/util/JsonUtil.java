@@ -26,19 +26,18 @@ public class JsonUtil {
 	private static final String JSON_DATA_PATH = "classpath:data/";
 
 	/**
-	 * This method read the json data from the file and deseralizes as Pojo
+	 * This method read the json data from the file and deserializes as Pojo
 	 *
 	 * @param fileName Filename of the json
-	 * @param classz   Class
 	 * @return Object of the Class
 	 */
 	public ArrayList<Integer> readFileAndGetData(String fileName) {
 		try {
 			return getObjectMapper().readValue(getFile(JSON_DATA_PATH + fileName),
-					new TypeReference<ArrayList<Integer>>() {
+					new TypeReference<>() {
 					});
 		} catch (IOException e) {
-			log.error("Error occured while fetching the data {}", e);
+			log.error("Error occurred while fetching the data {}", e);
 		}
 		return new ArrayList<>();
 	}
@@ -47,7 +46,7 @@ public class JsonUtil {
 		try {
 			return getObjectMapper().readValue(getFile(JSON_DATA_PATH + fileName), classz);
 		} catch (IOException e) {
-			log.error("Error occured while fetching the data {}", e);
+			log.error("Error occurred while fetching the data {}", e);
 		}
 		return null;
 	}

@@ -200,7 +200,7 @@ public class OccupancyManagerService implements IOccupancyManagerService {
 	 * @return list of customers
 	 */
 	private <T> List<List<T>> partitionCustomersByMinimumPremium(List<T> customers, Predicate<T> condition) {
-		return customers.stream().collect(partitioningBy(s -> (condition.test(s)))).values().stream()
+		return customers.stream().collect(partitioningBy(condition::test)).values().stream()
 				.collect(Collectors.toList());
 	}
 }

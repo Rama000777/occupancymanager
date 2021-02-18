@@ -55,7 +55,7 @@ class OccupancyManagerControllerIT {
 	 * This method is to test Occupancy Plan with valid payload of occupancy request
 	 */
 	@Test
-	void testOccupanyUsage() {
+	void testOccupancyUsage() {
 		final var request = new HttpEntity<>(OccupancyUsageRequestFactory.createThreePremiumAndThreeEconomyRooms(), headers);
 		final var occupancyUsageResponse = testRestTemplate.postForEntity(baseUrl + "/occupancy-usage", request,
 				OccupancyUsageResponse.class);

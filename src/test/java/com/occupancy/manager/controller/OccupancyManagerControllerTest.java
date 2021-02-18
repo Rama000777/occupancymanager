@@ -35,7 +35,7 @@ class OccupancyManagerControllerTest {
 	}
 
 	@Test
-	void testcalculateOccupancyFor3Premium3EconomyRooms() {
+	void testCalculateOccupancyFor3Premium3EconomyRooms() {
 		when(occupancyManagerService.calculateOccupancy(any(OccupancyUsageRequest.class)))
 				.thenReturn(OccupancyUsageResponseFactory.createOccupancyUsageResponseFor3Premium3EconomyRooms());
 		final var occupancyUsageResponse = occupancyManagerController
@@ -47,7 +47,7 @@ class OccupancyManagerControllerTest {
 	}
 	
 	@Test
-	void testcalculateOccupancyFor7Premium1EconomyRoom() {
+	void testCalculateOccupancyFor7Premium1EconomyRoom() {
 		when(occupancyManagerService.calculateOccupancy(any(OccupancyUsageRequest.class)))
 				.thenReturn(OccupancyUsageResponseFactory.createOccupancyUsageResponseFor7Premium1EconomyRoom());
 		final var occupancyUsageResponse = occupancyManagerController
@@ -59,7 +59,7 @@ class OccupancyManagerControllerTest {
 	}
 	
 	@Test
-	void testcalculateOccupancyFor2Premium7EconomyRooms() {
+	void testCalculateOccupancyFor2Premium7EconomyRooms() {
 		when(occupancyManagerService.calculateOccupancy(any(OccupancyUsageRequest.class)))
 				.thenReturn(OccupancyUsageResponseFactory.createOccupancyUsageResponseFor2Premium7EconomyRooms());
 		final var occupancyUsageResponse = occupancyManagerController
@@ -71,7 +71,7 @@ class OccupancyManagerControllerTest {
 	}
 	
 	@Test
-	void testcalculateOccupancyFor7Premium5EconomyRooms() {
+	void testCalculateOccupancyFor7Premium5EconomyRooms() {
 		when(occupancyManagerService.calculateOccupancy(any(OccupancyUsageRequest.class)))
 				.thenReturn(OccupancyUsageResponseFactory.createOccupancyUsageResponseFor7Premium5EconomyRooms());
 		final var occupancyUsageResponse = occupancyManagerController

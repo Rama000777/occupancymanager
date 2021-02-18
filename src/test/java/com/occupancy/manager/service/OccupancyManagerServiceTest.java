@@ -25,7 +25,7 @@ class OccupancyManagerServiceTest {
 	}
 
 	@Test
-	void testcalculateOccupancyFor3Premium3EconomyRooms() {
+	void testCalculateOccupancyFor3Premium3EconomyRooms() {
 		final var occupancyUsageResponse = occupancyManagerService
 				.calculateOccupancy(OccupancyUsageRequestFactory.createThreePremiumAndThreeEconomyRooms());
 		assertEquals("3 (EUR 738)", occupancyUsageResponse.getPremiumUsage(),
@@ -35,7 +35,7 @@ class OccupancyManagerServiceTest {
 	}
 	
 	@Test
-	void testcalculateOccupancyFor7Premium1EconomyRoom() {
+	void testCalculateOccupancyFor7Premium1EconomyRoom() {
 		final var occupancyUsageResponse = occupancyManagerService
 				.calculateOccupancy(OccupancyUsageRequestFactory.createSevenPremiumAndOneEconomyRoom());
 		assertEquals("7 (EUR 1153)", occupancyUsageResponse.getPremiumUsage(),
@@ -45,7 +45,7 @@ class OccupancyManagerServiceTest {
 	}
 	
 	@Test
-	void testcalculateOccupancyFor2Premium7EconomyRooms() {
+	void testCalculateOccupancyFor2Premium7EconomyRooms() {
 		final var occupancyUsageResponse = occupancyManagerService
 				.calculateOccupancy(OccupancyUsageRequestFactory.createTwoPremiumAndSevenEconomyRooms());
 		assertEquals("2 (EUR 583)", occupancyUsageResponse.getPremiumUsage(),
@@ -55,7 +55,7 @@ class OccupancyManagerServiceTest {
 	}
 	
 	@Test
-	void testcalculateOccupancyFor7Premium5EconomyRooms() {
+	void testCalculateOccupancyFor7Premium5EconomyRooms() {
 		final var occupancyUsageResponse = occupancyManagerService
 				.calculateOccupancy(OccupancyUsageRequestFactory.createSevenPremiumAndFiveEconomyRooms());
 		assertEquals("6 (EUR 1054)", occupancyUsageResponse.getPremiumUsage(),
