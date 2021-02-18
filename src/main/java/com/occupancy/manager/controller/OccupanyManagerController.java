@@ -39,7 +39,7 @@ public class OccupanyManagerController {
 	 * @return occupancyUsageResponse
 	 */
 	@PostMapping(path = "/occupancy-usage", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<OccupancyUsageResponse> calcuateOccupancy(
+	public ResponseEntity<OccupancyUsageResponse> calculateOccupancy(
 			@RequestBody final OccupancyUsageRequest occupancyUsageRequest) {
 		log.info("In calcuateOccupancy");
 		return new ResponseEntity<>(occupancyManagerService.calcuateOccupancy(occupancyUsageRequest),
