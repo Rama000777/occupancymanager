@@ -27,7 +27,7 @@ public class OccupancyManagerService implements IOccupancyManagerService {
 
 	private static final String OCCUPANCY_USAGE = "%s (EUR %s)";
 
-	public OccupancyUsageResponse calcuateOccupancy(OccupancyUsageRequest occupancyUsageRequest) {
+	public OccupancyUsageResponse calculateOccupancy(OccupancyUsageRequest occupancyUsageRequest) {
 
 		var premiumRooms = occupancyUsageRequest.getPremiumRooms();
 		var economyRooms = occupancyUsageRequest.getEconomyRooms();

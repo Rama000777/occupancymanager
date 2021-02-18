@@ -42,7 +42,7 @@ public class OccupancyManagerController {
 	public ResponseEntity<OccupancyUsageResponse> calculateOccupancy(
 			@RequestBody final OccupancyUsageRequest occupancyUsageRequest) {
 		log.info("In calcuateOccupancy");
-		return new ResponseEntity<>(occupancyManagerService.calcuateOccupancy(occupancyUsageRequest),
+		return new ResponseEntity<>(occupancyManagerService.calculateOccupancy(occupancyUsageRequest),
 				HttpStatus.CREATED);
 	}
 }

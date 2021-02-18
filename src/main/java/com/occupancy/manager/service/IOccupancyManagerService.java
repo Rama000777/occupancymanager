@@ -10,5 +10,5 @@ import com.occupancy.manager.dto.OccupancyUsageResponse;
  */
 public interface IOccupancyManagerService {
 
-	OccupancyUsageResponse calcuateOccupancy(OccupancyUsageRequest occupancyUsageRequest);
+	OccupancyUsageResponse calculateOccupancy(OccupancyUsageRequest occupancyUsageRequest);
 }
